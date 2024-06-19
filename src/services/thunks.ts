@@ -68,10 +68,7 @@ export const getOrders = createAsyncThunk(
 
 export const postOrder = createAsyncThunk(
   'order/post',
-  async (data: string[], { dispatch }) => {
-    dispatch(clearOrderData());
-    return orderBurgerApi(data);
-  }
+  async (data: string[]) => orderBurgerApi(data)
 );
 
 export const getOrder = createAsyncThunk(
