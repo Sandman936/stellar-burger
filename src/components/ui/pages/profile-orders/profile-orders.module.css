@@ -13,3 +13,11 @@
 .orders {
   width: 100%;
 }
+
+.detailHeader {
+  text-align: center;
+}
+
+.detailPageWrap {
+  margin: 120px auto;
+}

@@ -11,7 +11,17 @@ export const ProfileOrdersUI: FC<ProfileOrdersUIProps> = ({ orders }) => (
       <ProfileMenu />
     </div>
     <div className={`mt-10 ${styles.orders}`}>
-      <OrdersList orders={orders} />
+      {orders.length ? (
+        <OrdersList orders={orders} />
+      ) : (
+        <div className={styles.detailPageWrap}>
+          <p
+            className={`text text_type_digits-default ${styles.detailHeader} `}
+          >
+            История заказов отсутствует
+          </p>
+        </div>
+      )}
     </div>
   </main>
 );
