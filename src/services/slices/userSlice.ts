@@ -6,12 +6,14 @@ interface userState {
   isAuthChecked: boolean;
   user: TUser | null;
   status: RequestStatus;
+  error: string | undefined;
 }
 
 const initialState: userState = {
   isAuthChecked: false,
   user: null,
-  status: RequestStatus.Idle
+  status: RequestStatus.Idle,
+  error: undefined
 };
 
 export const userSlice = createSlice({
@@ -30,8 +32,9 @@ export const userSlice = createSlice({
       .addCase(checkUserAuth.pending, (state) => {
         state.status = RequestStatus.Loading;
       })
-      .addCase(checkUserAuth.rejected, (state) => {
+      .addCase(checkUserAuth.rejected, (state, action) => {
         state.status = RequestStatus.Rejected;
+        state.error = action.error.message;
       })
       .addCase(checkUserAuth.fulfilled, (state, action) => {
         state.status = RequestStatus.Success;
@@ -40,8 +43,9 @@ export const userSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.status = RequestStatus.Loading;
       })
-      .addCase(registerUser.rejected, (state) => {
+      .addCase(registerUser.rejected, (state, action) => {
         state.status = RequestStatus.Rejected;
+        state.error = action.error.message;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.status = RequestStatus.Success;
@@ -50,8 +54,9 @@ export const userSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.status = RequestStatus.Loading;
       })
-      .addCase(loginUser.rejected, (state) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.status = RequestStatus.Rejected;
+        state.error = action.error.message;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = RequestStatus.Success;
@@ -60,8 +65,9 @@ export const userSlice = createSlice({
       .addCase(updateUser.pending, (state) => {
         state.status = RequestStatus.Loading;
       })
-      .addCase(updateUser.rejected, (state) => {
+      .addCase(updateUser.rejected, (state, action) => {
         state.status = RequestStatus.Rejected;
+        state.error = action.error.message;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.status = RequestStatus.Success;

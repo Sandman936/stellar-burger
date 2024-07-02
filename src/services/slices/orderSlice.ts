@@ -6,12 +6,14 @@ interface OrderState {
   order: TOrder | null;
   name: string;
   status: RequestStatus;
+  error: string | undefined;
 }
 
 const initialState: OrderState = {
   order: null,
   name: '',
-  status: RequestStatus.Idle
+  status: RequestStatus.Idle,
+  error: undefined
 };
 
 export const orderSlice = createSlice({
@@ -22,6 +24,7 @@ export const orderSlice = createSlice({
       state.order = null;
       state.name = '';
       state.status = RequestStatus.Idle;
+      state.error = undefined;
     }
   },
   extraReducers: (builder) => {
@@ -29,8 +32,9 @@ export const orderSlice = createSlice({
       .addCase(postOrder.pending, (state) => {
         state.status = RequestStatus.Loading;
       })
-      .addCase(postOrder.rejected, (state) => {
+      .addCase(postOrder.rejected, (state, action) => {
         state.status = RequestStatus.Rejected;
+        state.error = action.error.message;
       })
       .addCase(
         postOrder.fulfilled,
@@ -43,8 +47,9 @@ export const orderSlice = createSlice({
       .addCase(getOrder.pending, (state) => {
         state.status = RequestStatus.Loading;
       })
-      .addCase(getOrder.rejected, (state) => {
+      .addCase(getOrder.rejected, (state, action) => {
         state.status = RequestStatus.Rejected;
+        state.error = action.error.message;
       })
       .addCase(
         getOrder.fulfilled,

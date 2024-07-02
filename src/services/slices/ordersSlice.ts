@@ -5,11 +5,13 @@ import { getOrders } from '../thunks';
 interface OrdersState {
   orders: TOrder[];
   status: RequestStatus;
+  error: string | undefined;
 }
 
 const initialState: OrdersState = {
   orders: [],
-  status: RequestStatus.Idle
+  status: RequestStatus.Idle,
+  error: undefined
 };
 
 export const ordersSlice = createSlice({
@@ -21,8 +23,9 @@ export const ordersSlice = createSlice({
       .addCase(getOrders.pending, (state) => {
         state.status = RequestStatus.Loading;
       })
-      .addCase(getOrders.rejected, (state) => {
+      .addCase(getOrders.rejected, (state, action) => {
         state.status = RequestStatus.Rejected;
+        state.error = action.error.message;
       })
       .addCase(
         getOrders.fulfilled,

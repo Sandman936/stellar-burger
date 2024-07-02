@@ -5,11 +5,13 @@ import { fetchIngridents } from '../thunks';
 interface IngredientsState {
   ingredients: TIngredient[];
   status: RequestStatus;
+  error: string | undefined;
 }
 
 const initialState: IngredientsState = {
   ingredients: [],
-  status: RequestStatus.Idle
+  status: RequestStatus.Idle,
+  error: undefined
 };
 
 export const ingredientsSlice = createSlice({
@@ -21,14 +23,16 @@ export const ingredientsSlice = createSlice({
       .addCase(fetchIngridents.pending, (state) => {
         state.status = RequestStatus.Loading;
       })
-      .addCase(fetchIngridents.rejected, (state) => {
+      .addCase(fetchIngridents.rejected, (state, action) => {
         state.status = RequestStatus.Rejected;
+        state.error = action.error.message;
       })
       .addCase(
         fetchIngridents.fulfilled,
         (state, action: PayloadAction<TIngredient[]>) => {
           state.status = RequestStatus.Success;
           state.ingredients = action.payload;
+          state.error = undefined;
         }
       );
   },
