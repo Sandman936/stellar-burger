@@ -9,7 +9,7 @@ interface userState {
   error: string | undefined;
 }
 
-const initialState: userState = {
+export const initialState: userState = {
   isAuthChecked: false,
   user: null,
   status: RequestStatus.Idle,

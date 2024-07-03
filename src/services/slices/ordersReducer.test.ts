@@ -1,20 +1,8 @@
 import { RequestStatus, TOrder } from '@utils-types';
 import { getOrders } from '../thunks';
-import { ordersSlice } from './ordersSlice';
+import { ordersSlice, initialState } from './ordersSlice';
 
-interface initialState {
-  orders: TOrder[];
-  status: RequestStatus;
-  error: string | undefined;
-}
-
-const initialState: initialState = {
-  orders: [],
-  status: RequestStatus.Idle,
-  error: undefined
-};
-
-const expectedResult: initialState = {
+const expectedResult: typeof initialState = {
   orders: [
     {
       _id: '66830351856777001bb1efe6',

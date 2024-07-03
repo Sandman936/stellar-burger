@@ -1,23 +1,9 @@
-import { RequestStatus, TOrder } from '@utils-types';
-import { clearOrderData, orderSlice } from './orderSlice';
+import { RequestStatus } from '@utils-types';
+import { clearOrderData, orderSlice, initialState } from './orderSlice';
 import { getOrder, postOrder } from '../thunks';
 import { configureStore } from '@reduxjs/toolkit';
 
-interface initialState {
-  order: TOrder | null;
-  name: string;
-  status: RequestStatus;
-  error: string | undefined;
-}
-
-const initialState: initialState = {
-  order: null,
-  name: '',
-  status: RequestStatus.Idle,
-  error: undefined
-};
-
-const expectedResult: initialState = {
+const expectedResult: typeof initialState = {
   order: {
     _id: '66830351856777001bb1efe6',
     ingredients: [

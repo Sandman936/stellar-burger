@@ -1,23 +1,9 @@
-import { RequestStatus, TUser } from '@utils-types';
-import { userActions, userSlice } from './userSlice';
+import { RequestStatus } from '@utils-types';
+import { userActions, userSlice, initialState } from './userSlice';
 import { checkUserAuth, loginUser, registerUser, updateUser } from '../thunks';
 import { configureStore } from '@reduxjs/toolkit';
 
-interface initialState {
-  isAuthChecked: boolean;
-  user: TUser | null;
-  status: RequestStatus;
-  error: string | undefined;
-}
-
-const initialState: initialState = {
-  isAuthChecked: false,
-  user: null,
-  status: RequestStatus.Idle,
-  error: undefined
-};
-
-const expectedResult: initialState = {
+const expectedResult: typeof initialState = {
   isAuthChecked: true,
   user: {
     email: 'test@mail.ru',

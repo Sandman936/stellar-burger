@@ -1,24 +1,8 @@
 import { RequestStatus, TOrder } from '@utils-types';
-import { feedSlice } from './feedSlice';
+import { feedSlice, initialState } from './feedSlice';
 import { getFeeds } from '../thunks';
 
-interface initialState {
-  orders: TOrder[];
-  total: number;
-  totalToday: number;
-  status: RequestStatus;
-  error: string | undefined;
-}
-
-const initialState: initialState = {
-  orders: [],
-  total: 0,
-  totalToday: 0,
-  status: RequestStatus.Idle,
-  error: undefined
-};
-
-const expectedResult: initialState = {
+const expectedResult: typeof initialState = {
   orders: [
     {
       _id: '6680e12d856777001bb1ebc4',

@@ -1,20 +1,8 @@
 import { RequestStatus, TIngredient } from '@utils-types';
 import { fetchIngridents } from '../thunks';
-import { ingredientsSlice } from './ingredientsSlice';
+import { ingredientsSlice, initialState } from './ingredientsSlice';
 
-interface initialState {
-  ingredients: TIngredient[];
-  status: RequestStatus;
-  error: string | undefined;
-}
-
-const initialState: initialState = {
-  ingredients: [],
-  status: RequestStatus.Idle,
-  error: undefined
-};
-
-const expectedResult: initialState = {
+const expectedResult: typeof initialState = {
   ingredients: [
     {
       _id: '643d69a5c3f7b9001cfa093c',

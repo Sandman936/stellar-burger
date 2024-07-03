@@ -8,7 +8,7 @@ interface OrdersState {
   error: string | undefined;
 }
 
-const initialState: OrdersState = {
+export const initialState: OrdersState = {
   orders: [],
   status: RequestStatus.Idle,
   error: undefined

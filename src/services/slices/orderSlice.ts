@@ -9,7 +9,7 @@ interface OrderState {
   error: string | undefined;
 }
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   order: null,
   name: '',
   status: RequestStatus.Idle,
