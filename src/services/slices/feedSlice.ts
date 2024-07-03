@@ -7,13 +7,15 @@ interface FeedState {
   total: number;
   totalToday: number;
   status: RequestStatus;
+  error: string | undefined;
 }
 
-const initialState: FeedState = {
+export const initialState: FeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
-  status: RequestStatus.Idle
+  status: RequestStatus.Idle,
+  error: undefined
 };
 
 export const feedSlice = createSlice({
@@ -25,8 +27,9 @@ export const feedSlice = createSlice({
       .addCase(getFeeds.pending, (state) => {
         state.status = RequestStatus.Loading;
       })
-      .addCase(getFeeds.rejected, (state) => {
+      .addCase(getFeeds.rejected, (state, action) => {
         state.status = RequestStatus.Rejected;
+        state.error = action.error.message;
       })
       .addCase(
         getFeeds.fulfilled,
@@ -35,6 +38,7 @@ export const feedSlice = createSlice({
           state.orders = action.payload.orders;
           state.total = action.payload.total;
           state.totalToday = action.payload.totalToday;
+          state.error = undefined;
         }
       );
   },
